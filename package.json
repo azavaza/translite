@@ -1,6 +1,7 @@
 {
   "name": "openai-proxy-1",
   "version": "1.0.0",
+  "description": "Simple proxy for OpenAI API",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -11,3 +12,4 @@
     "node-fetch": "^3.3.2"
   }
 }
+
