@@ -4,17 +4,15 @@ import fetch from "node-fetch";
 const app = express();
 app.use(express.json());
 
-// Тестовый маршрут
 app.get("/", (req, res) => {
-  res.send("✅ OpenAI Proxy работает!");
+  res.send("✅ OpenAI Proxy работает! Все отлично 👌");
 });
 
-// Основной перевод
 app.post("/translate", async (req, res) => {
   const { text, lang } = req.body;
 
   if (!text || !lang) {
-    return res.status(400).json({ error: "Отсутствует текст или язык." });
+    return res.status(400).json({ error: "Отсутствует текст или язык" });
   }
 
   const prompt = `Переведи этот HTML на ${lang}, сохрани структуру, ссылки и форматирование, но измени только текстовые части:\n\n${text}`;
@@ -34,16 +32,16 @@ app.post("/translate", async (req, res) => {
     });
 
     const data = await response.json();
-    res.json(data);
+    return res.json(data);
   } catch (error) {
     console.error("Ошибка при обращении к OpenAI:", error);
-    res.status(500).json({ error: "Ошибка при обращении к OpenAI API" });
+    return res.status(500).json({ error: error.message });
   }
 });
 
-// Render требует слушать именно этот порт
+// ✅ Обязательно именно так:
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`✅ Сервер запущен на порту ${PORT}`);
+  console.log(`✅ Сервер запущен и слушает порт ${PORT}`);
 });
 
